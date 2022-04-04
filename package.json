@@ -1,0 +1,44 @@
+{
+  "name": "notion-hugo-markdown",
+  "version": "0.0.0",
+  "description": "Converts Notion Markdown exports to Hugo SSG Compatible Markdown folders.",
+  "type": "module",
+  "engines": {
+    "node": ">= 14.19.0"
+  },
+  "devDependencies": {
+    "@types/jest": "~27.4",
+    "@types/node": "~14.14.19",
+    "@typescript-eslint/eslint-plugin": "~5.14",
+    "@typescript-eslint/parser": "~5.14",
+    "eslint": "~8.11",
+    "eslint-config-prettier": "~8.5",
+    "eslint-plugin-jest": "~26.1",
+    "jest": "~27.5",
+    "prettier": "~2.5",
+    "rimraf": "~3.0",
+    "ts-jest": "~27.1",
+    "tsutils": "~3.21",
+    "typescript": "~4.6"
+  },
+  "scripts": {
+    "start": "node build/src/main.js",
+    "clean": "rimraf coverage build tmp",
+    "prebuild": "npm run lint",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "build:release": "npm run clean && tsc -p tsconfig.release.json",
+    "lint": "eslint . --ext .ts",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build:win32": "tsc -p tsconfig.json && nexe build/src/main.js --target win32-x86-10.13.0 -o build/win32/notion-hugo-markdown.exe"
+  },
+  "author": "Ganesh H <ganeshh123@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "~2.3.1"
+  },
+  "volta": {
+    "node": "16.13.0"
+  }
+}
