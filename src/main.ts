@@ -7,6 +7,7 @@ import { getSlug } from "./get-slug"
 import { getPostSourceFp } from "./get-post-source-fp"
 import { getFileContent } from "./get-file-content"
 import { createPostDirectory } from "./create-post-directory"
+import { getFrontMatter } from "./get-front-matter"
 
 const main = async () => {
   try{
@@ -18,6 +19,7 @@ const main = async () => {
       const fileContent = getFileContent(postSourceFp)
       const postSlug = getSlug(fileContent)
       const newPostFile = createPostDirectory(postSlug)
+      const frontMatter = getFrontMatter(fileContent)
       console.log(newPostFile)
     }
     terminate()
