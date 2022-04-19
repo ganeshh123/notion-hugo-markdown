@@ -12,6 +12,5 @@ export const getFrontMatter = (pageContent: string): string => {
         const value = kV.join(':').substring(1)
         frontMatter[key] = value
     }
-    console.log(JSON.stringify(frontMatter))
     return JSON.stringify(frontMatter)
 }

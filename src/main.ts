@@ -8,6 +8,8 @@ import { getPostSourceFp } from "./get-post-source-fp"
 import { getFileContent } from "./get-file-content"
 import { createPostDirectory } from "./create-post-directory"
 import { getFrontMatter } from "./get-front-matter"
+import { processAssets } from "./process-assets"
+import { dirname } from "path"
 
 const main = async () => {
   try{
@@ -20,7 +22,8 @@ const main = async () => {
       const postSlug = getSlug(fileContent)
       const newPostFile = createPostDirectory(postSlug)
       const frontMatter = getFrontMatter(fileContent)
-      console.log(newPostFile)
+      const newAssets = processAssets(`temp/${folder}`, dirname(newPostFile), postSlug)
+      console.log(frontMatter, newAssets)
     }
     terminate()
   }catch(e){
