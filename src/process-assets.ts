@@ -1,11 +1,12 @@
 import { copyFileSync, fstat, readdirSync } from 'fs';
-import { join } from 'path';
+import { join } from 'path'
+import { uRLify } from './urlify';
 
 export const processAssets = (
   pageDir: string,
   postDir: string,
   postSlug: string,
-): string[][] => {
+): {oldName: string, newName: string}[] => {
   const folders = readdirSync(pageDir, { withFileTypes: true })
     .filter((item) => item.isDirectory())
     .map((item) => item.name)
@@ -28,9 +29,14 @@ export const processAssets = (
     }
   }
 
+  // Untitled.png should come first before Untitled 1.png
+  assets.sort((a, b) =>  a.length - b.length)
+
+  const results: {oldName: string, newName: string}[] = []
   for(let i = 0; i < assets.length; i++){
     copyFileSync(join(assetsFolder, assets[i]), join(postDir, newAssets[i]))
+    results.push({oldName: uRLify(`${folders[0]}/${assets[i]}`), newName: newAssets[i]})
   }
 
-  return [assets, newAssets]
+  return results
 }

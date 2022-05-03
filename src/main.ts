@@ -10,6 +10,8 @@ import { createPostDirectory } from "./create-post-directory"
 import { getFrontMatter } from "./get-front-matter"
 import { processAssets } from "./process-assets"
 import { dirname } from "path"
+import { getPageContent } from "./get-markdown-content"
+import { fixImageUrls } from "./fix-image-urls"
 
 const main = async () => {
   try{
@@ -23,7 +25,10 @@ const main = async () => {
       const newPostFile = createPostDirectory(postSlug)
       const frontMatter = getFrontMatter(fileContent)
       const newAssets = processAssets(`temp/${folder}`, dirname(newPostFile), postSlug)
-      console.log(frontMatter, newAssets)
+      const pageContent = getPageContent(fileContent)
+      const replaced = fixImageUrls(pageContent, newAssets)
+      const newText = frontMatter + '\n\n' + replaced
+      console.log(newText)
     }
     terminate()
   }catch(e){

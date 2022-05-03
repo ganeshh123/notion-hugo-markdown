@@ -1,0 +1,1 @@
+export type ReplaceTerm = {find: string, replaceWith: string, all?: boolean}
