@@ -6,6 +6,6 @@ export const extractZip = (zipFile: string, targetDir?: string, targetFileName?:
         targetDir = process.cwd()
     }
     const extractedFolderName = targetFileName ?? basename(zipFile, extname(zipFile))
-    await extract(zipFile, {dir: pathResolve(targetDir, extractedFolderName)})
+    await extract(zipFile, {dir: pathResolve(targetDir)})
     resolve(extractedFolderName)
 })
